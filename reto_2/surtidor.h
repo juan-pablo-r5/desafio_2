@@ -4,27 +4,27 @@
 // y debe registrar todas las transacciones que se realicen.
 #include <iostream>
 #include "transaccion.h"
-#include <cstring>
-class surtidor
-{
-public:
-    surtidor();
+#include <string>
 
+class surtidor {
 private:
     void redimensionarVentas();
 
 public:
-    char codigo[20];
-    char modelo[50];
+    std::string codigo;
+    std::string modelo;
     bool activo;
-    transaccion* ventas;
+
+    transaccion* ventas;   // Puntero a un array dinámico de transacciones
     int numeroVentas;
     int capacidadVentas;
-    surtidor(const char* cod = "", const char* mod = "", bool act = true);
+
+    // Constructor y destructor
+    surtidor(const std::string& cod = "", const std::string& mod = "", bool act = true);
     ~surtidor();
 
     // Métodos para gestionar las ventas
-    void registrarVenta(const transaccion& venta);
+    void registrarVenta(const transaccion& nuevaVenta);
     void consultarTransacciones() const;
     void reportarVentasPorCategoria() const;
 

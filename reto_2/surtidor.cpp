@@ -1,66 +1,65 @@
 #include "surtidor.h"
-#include <iostream>
-
-// Constructor de la clase Surtidor
-surtidor::surtidor(const char* cod, const char* mod, bool act) {
-    int i = 0;
-    while (cod[i] != '\0' && i < 19) {
-        codigo[i] = cod[i];
-        i++;
-    }
-    codigo[i] = '\0';
-
-    i = 0;
-    while (mod[i] != '\0' && i < 49) {
-        modelo[i] = mod[i];
-        i++;
-    }
-    modelo[i] = '\0';
-
+// Constructor del surtidor usando std::string
+surtidor::surtidor(const std::string& cod, const std::string& mod, bool act) {
+    codigo = cod;
+    modelo = mod;
     activo = act;
 
-    capacidadVentas = 2;
-    numeroVentas = 0;
-    ventas = new transaccion[capacidadVentas];
+
+    capacidadVentas = 4;  // Capacidad inicial mínima
+    numeroVentas = 0;        // No hay ventas registradas al principio
+    ventas = nullptr;
+    ventas = new transaccion[capacidadVentas];  // Inicializar el array dinámico
 }
 
-// Destructor de la clase Surtidor
+// Destructor del surtidor
 surtidor::~surtidor() {
-    delete[] ventas;
+    delete[] ventas;  // Liberar la memoria del array de ventas
 }
 
-// Método privado para redimensionar el array de ventas si es necesario
+// Método privado para redimensionar el array de ventas
 void surtidor::redimensionarVentas() {
-    capacidadVentas *= 2;
+    capacidadVentas *= 2;  // Duplicar la capacidad del array dinámico de transacciones
     transaccion* nuevoArray = new transaccion[capacidadVentas];
+
+    // Copiar las transacciones existentes al nuevo array
     for (int i = 0; i < numeroVentas; ++i) {
         nuevoArray[i] = ventas[i];
     }
+    // Liberar la memoria del array antiguo
     delete[] ventas;
+    // Asignar el nuevo array al puntero ventas
     ventas = nuevoArray;
 }
 
-// Registrar una nueva venta si el surtidor está activo
-void surtidor::registrarVenta(const transaccion& venta) {
+// Registrar una nueva venta pasando un objeto `transaccion`
+void surtidor::registrarVenta(const transaccion& nuevaVenta) {
     if (!activo) {
         std::cout << "El surtidor " << codigo << " está inactivo y no puede registrar ventas.\n";
         return;
     }
+
+    // Redimensionar el array de ventas si está lleno
     if (numeroVentas == capacidadVentas) {
-        redimensionarVentas();
+        redimensionarVentas();  // Aumentar el tamaño del array si es necesario
     }
-    ventas[numeroVentas++] = venta;
+
+    // Agregar la venta al array, como en agregarSurtidor
+    ventas[numeroVentas++] = nuevaVenta;
+
     std::cout << "Venta registrada en el surtidor " << codigo << ".\n";
 }
 
 // Consultar todas las transacciones realizadas por el surtidor
 void surtidor::consultarTransacciones() const {
+    if (numeroVentas == 0) {
+        std::cout << "No hay transacciones registradas en el surtidor " << codigo << ".\n";
+        return;
+    }
     std::cout << "Transacciones del surtidor " << codigo << " (" << modelo << "):\n";
     for (int i = 0; i < numeroVentas; ++i) {
-        std::cout << "- Venta " << (i + 1) << ": "
-                  << ventas[i].categoriaCombustible << ", "
-                  << ventas[i].cantidadLitros << " litros, $"
-                  << ventas[i].monto << "\n";
+        ventas[i].mostrarDetalles();
+        std::cout << "----------------------------\n";
     }
 }
 
@@ -69,11 +68,11 @@ void surtidor::reportarVentasPorCategoria() const {
     double totalRegular = 0.0, totalPremium = 0.0, totalEcoExtra = 0.0;
 
     for (int i = 0; i < numeroVentas; ++i) {
-        if (strcmp(ventas[i].categoriaCombustible, "Regular") == 0) {
+        if (ventas[i].categoriaCombustible == "Regular") {
             totalRegular += ventas[i].cantidadLitros;
-        } else if (strcmp(ventas[i].categoriaCombustible, "Premium") == 0) {
+        } else if (ventas[i].categoriaCombustible == "Premium") {
             totalPremium += ventas[i].cantidadLitros;
-        } else if (strcmp(ventas[i].categoriaCombustible, "EcoExtra") == 0) {
+        } else if (ventas[i].categoriaCombustible == "EcoExtra") {
             totalEcoExtra += ventas[i].cantidadLitros;
         }
     }

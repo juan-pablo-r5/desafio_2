@@ -1,11 +1,12 @@
 #include "rednacional.h"
 
+// Constructor de la red nacional
 rednacional::rednacional() {
     capacidadEstaciones = 2;  // Capacidad inicial
     numeroEstaciones = 0;
+    estaciones = nullptr;
     estaciones = new estacion[capacidadEstaciones];
 }
-
 
 // Destructor
 rednacional::~rednacional() {
@@ -34,7 +35,7 @@ void rednacional::agregarEstacion(const estacion& estacione) {
 // Eliminar una estación de la red por índice
 void rednacional::eliminarEstacion(int indice) {
     if (indice < 0 || indice >= numeroEstaciones) {
-        std::cout << "Índice invalido.\n";
+        std::cout << "Índice inválido.\n";
         return;
     }
     // Desplazar las estaciones para llenar el hueco dejado por la estación eliminada
@@ -52,7 +53,7 @@ void rednacional::mostrarEstaciones() const {
     }
 
     for (int i = 0; i < numeroEstaciones; ++i) {
-        std::cout << "Estacion " << (i + 1) << ":\n";
+        std::cout << "Estación " << (i + 1) << ":\n";
         estaciones[i].mostrarEstacion();
         std::cout << "-----------------------\n";
     }

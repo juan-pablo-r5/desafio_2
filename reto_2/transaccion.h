@@ -5,22 +5,21 @@
 #include <iostream>
 #include <ctime>  // Para manejar la fecha y hora con time_t
 
-class transaccion
-{
+class transaccion {
 public:
     time_t fecha;               // Fecha y hora de la transacción
-    char categoriaCombustible[10]; // Regular, Premium, EcoExtra
-    double cantidadLitros;       // Cantidad de litros vendidos
-    double monto;                // Monto total pagado
-    char metodoPago[15];         // Efectivo, TDebito, TCredito
-    char documentoCliente[20];   // Documento del cliente
+    std::string categoriaCombustible;  // Regular, Premium, EcoExtra
+    int cantidadLitros;          // Cantidad de litros vendidos
+    int montos;                   // Monto total pagado
+    std::string metodoPago;      // Efectivo, TDebito, TCredito
+    std::string documentoCliente; // Documento del cliente (ahora string)
 
     // Constructor
-    transaccion(const char* categoria = "", double litros = 0.0, double monto = 0.0,
-                const char* metodo = "", const char* documento = "");
+    transaccion(const std::string& categoria = "", int litros=0, int monto=0,
+                const std::string& metodo = "", const std::string& documento = "");
+    //~transaccion();
 
     // Método para mostrar los detalles de la transacción
     void mostrarDetalles() const;
 };
-
 #endif // TRANSACCION_H

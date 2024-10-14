@@ -9,12 +9,10 @@ using namespace std;
 
 class rednacional
 {
-
 private:
     estacion* estaciones;  // Puntero a un array dinámico de EstacionDeServicio
-    int numeroEstaciones;            // Número de estaciones actuales en la red
-    int capacidadEstaciones;         // Capacidad actual del array
-
+    int numeroEstaciones;  // Número de estaciones actuales en la red
+    int capacidadEstaciones; // Capacidad actual del array
     // Método privado para redimensionar el array cuando sea necesario
     void redimensionar();
 
@@ -30,5 +28,6 @@ public:
     // Mostrar todas las estaciones
     void mostrarEstaciones() const;
 };
+
 
 #endif // REDNACIONAL_H
