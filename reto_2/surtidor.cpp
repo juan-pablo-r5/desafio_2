@@ -35,7 +35,7 @@ void surtidor::redimensionarVentas() {
 // Registrar una nueva venta pasando un objeto `transaccion`
 void surtidor::registrarVenta(const transaccion& nuevaVenta) {
     if (!activo) {
-        std::cout << "El surtidor " << codigo << " está inactivo y no puede registrar ventas.\n";
+        std::cout << "El surtidor " << codigo << " esta inactivo y no puede registrar ventas.\n";
         return;
     }
 
@@ -77,7 +77,7 @@ void surtidor::reportarVentasPorCategoria() const {
         }
     }
 
-    std::cout << "Reporte de ventas por categoría en el surtidor " << codigo << " (" << modelo << "):\n";
+    std::cout << "Reporte de ventas por categoria en el surtidor " << codigo << " (" << modelo << "):\n";
     std::cout << "Regular: " << totalRegular << " litros\n";
     std::cout << "Premium: " << totalPremium << " litros\n";
     std::cout << "EcoExtra: " << totalEcoExtra << " litros\n";

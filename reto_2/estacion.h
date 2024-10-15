@@ -14,11 +14,9 @@ private:
     std::string region;
     double tanque[3];
 
-    // Almacenar punteros a surtidores en lugar de copias
-    surtidor** surtidores;
+    surtidor** surtidores;  // Puntero a un array dinámico de punteros a surtidores
     int numeroSurtidores;
     int capacidadSurtidores;
-
     void redimensionarSurtidores();
 
 public:
@@ -26,10 +24,13 @@ public:
     estacion(const std::string& nom, int cod, const std::string& ger, const std::string& reg, double latitud, double longitud, double regular, double premium, double ecoExtra);
     ~estacion();
 
-    // Cambia para aceptar punteros
     void agregarSurtidor(surtidor* surtidor);
     void eliminarSurtidor(int indice);
     void mostrarEstacion() const;
+
+    // Nuevos métodos necesarios
+    void mostrarSurtidores() const;  // Mostrar todos los surtidores
+    surtidor* getSurtidor(int indice);  // Obtener un surtidor específico
 };
 
 #endif // ESTACION_H

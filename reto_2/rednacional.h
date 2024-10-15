@@ -10,24 +10,24 @@ using namespace std;
 class rednacional
 {
 private:
-    estacion* estaciones;  // Puntero a un array dinámico de EstacionDeServicio
+    estacion* estaciones;  // Puntero a un array dinámico de estaciones
     int numeroEstaciones;  // Número de estaciones actuales en la red
-    int capacidadEstaciones; // Capacidad actual del array
-    // Método privado para redimensionar el array cuando sea necesario
-    void redimensionar();
+    int capacidadEstaciones; // Capacidad actual del array de estaciones
+
+    void redimensionar();  // Método para redimensionar el array dinámico
 
 public:
-    // Constructor y destructor
-    rednacional();
-    ~rednacional();
+    rednacional();  // Constructor
+    ~rednacional();  // Destructor
 
-    // Métodos para agregar y eliminar estaciones
     void agregarEstacion(const estacion& estacion);
     void eliminarEstacion(int indice);
+    bool puedeEliminarEstacion(int indice) const;
 
-    // Mostrar todas las estaciones
-    void mostrarEstaciones() const;
+    // Nuevos métodos necesarios
+    estacion& getEstacion(int indice);  // Obtener una estación específica
+    int getNumeroEstaciones() const;  // Obtener el número de estaciones
+    void mostrarEstaciones() const;  // Mostrar todas las estaciones
 };
-
 
 #endif // REDNACIONAL_H
