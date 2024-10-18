@@ -4,11 +4,8 @@ surtidor::surtidor(const std::string& cod, const std::string& mod, bool act) {
     codigo = cod;
     modelo = mod;
     activo = act;
-
-
     capacidadVentas = 4;  // Capacidad inicial mínima
     numeroVentas = 0;        // No hay ventas registradas al principio
-    ventas = nullptr;
     ventas = new transaccion[capacidadVentas];  // Inicializar el array dinámico
 }
 
@@ -21,7 +18,6 @@ surtidor::~surtidor() {
 void surtidor::redimensionarVentas() {
     capacidadVentas *= 2;  // Duplicar la capacidad del array dinámico de transacciones
     transaccion* nuevoArray = new transaccion[capacidadVentas];
-
     // Copiar las transacciones existentes al nuevo array
     for (int i = 0; i < numeroVentas; ++i) {
         nuevoArray[i] = ventas[i];
@@ -43,10 +39,8 @@ void surtidor::registrarVenta(const transaccion& nuevaVenta) {
     if (numeroVentas == capacidadVentas) {
         redimensionarVentas();  // Aumentar el tamaño del array si es necesario
     }
-
     // Agregar la venta al array, como en agregarSurtidor
     ventas[numeroVentas++] = nuevaVenta;
-
     std::cout << "Venta registrada en el surtidor " << codigo << ".\n";
 }
 
@@ -63,6 +57,16 @@ void surtidor::consultarTransacciones() const {
     }
 }
 
+double surtidor::calcularTotalPorCategoria(const std::string& categoria) const {
+    double total = 0.0;
+    for (int i = 0; i < numeroVentas; ++i) {
+        if (ventas[i].categoriaCombustible == categoria) {
+            total += ventas[i].montos;
+        }
+    }
+    return total;
+}
+
 // Reportar las ventas por categoría de combustible
 void surtidor::reportarVentasPorCategoria() const {
     double totalRegular = 0.0, totalPremium = 0.0, totalEcoExtra = 0.0;
@@ -76,13 +80,21 @@ void surtidor::reportarVentasPorCategoria() const {
             totalEcoExtra += ventas[i].cantidadLitros;
         }
     }
-
     std::cout << "Reporte de ventas por categoria en el surtidor " << codigo << " (" << modelo << "):\n";
     std::cout << "Regular: " << totalRegular << " litros\n";
     std::cout << "Premium: " << totalPremium << " litros\n";
     std::cout << "EcoExtra: " << totalEcoExtra << " litros\n";
 }
 
+double surtidor::calcularLitrosPorCategoria(const std::string& categoria) const {
+    double totalLitros = 0.0;
+    for (int i = 0; i < numeroVentas; ++i) {
+        if (ventas[i].categoriaCombustible == categoria) {
+            totalLitros += ventas[i].cantidadLitros;
+        }
+    }
+    return totalLitros;
+}
 // Método para activar el surtidor
 void surtidor::activar() {
     activo = true;

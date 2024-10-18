@@ -27,10 +27,17 @@ public:
     void agregarSurtidor(surtidor* surtidor);
     void eliminarSurtidor(int indice);
     void mostrarEstacion() const;
+    std::string getNombre() const;
+    int getNumeroSurtidores() const;
+    std::string getRegion() const;
 
     // Nuevos métodos necesarios
     void mostrarSurtidores() const;  // Mostrar todos los surtidores
     surtidor* getSurtidor(int indice);  // Obtener un surtidor específico
+    void calcularTotalVentasPorCategoria() const;
+    void calcularLitrosVendidosPorCategoria() const;
+
+
 };
 
 #endif // ESTACION_H

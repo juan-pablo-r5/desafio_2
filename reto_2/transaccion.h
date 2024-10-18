@@ -17,7 +17,7 @@ public:
     // Constructor
     transaccion(const std::string& categoria = "", int litros=0, int monto=0,
                 const std::string& metodo = "", const std::string& documento = "");
-    //~transaccion();
+
 
     // Método para mostrar los detalles de la transacción
     void mostrarDetalles() const;

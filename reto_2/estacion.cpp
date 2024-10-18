@@ -53,13 +53,17 @@ void estacion::agregarSurtidor(surtidor* surtidor) {
     if (numeroSurtidores == capacidadSurtidores) {
         redimensionarSurtidores();
     }
+    if(numeroSurtidores ==12){
+        std::cout <<"ya no puedes agregar mas surtidores a la estacion pues ya son mas de 12"<<std::endl;
+        return;
+    }
     surtidores[numeroSurtidores++] = surtidor;
 }
 
 // Eliminar un surtidor de la estación por índice
 void estacion::eliminarSurtidor(int indice) {
     if (indice < 0 || indice >= numeroSurtidores) {
-        std::cout << "Índice inválido.\n";
+        std::cout << "indice invalido.\n";
         return;
     }
     delete surtidores[indice];  // Liberar la memoria del surtidor eliminado
@@ -68,9 +72,19 @@ void estacion::eliminarSurtidor(int indice) {
     }
     numeroSurtidores--;
 }
+std::string estacion::getNombre() const {
+    return nombre;
+}
+int estacion::getNumeroSurtidores() const {
+    return numeroSurtidores;  // Devuelve el número actual de surtidores
+}
+std::string estacion::getRegion() const {
+    return region;  // Retorna la región de la estación
+}
 void estacion::mostrarEstacion() const {
     std::cout << "Nombre: " << nombre << "\n";
-    std::cout << "Cpdigo: " << codigo << "\n";
+    //hacer que veas solo el nombre
+    std::cout << "Codigo: " << codigo << "\n";
     std::cout << "Gerente: " << gerente << "\n";
     std::cout << "Regipn: " << region << "\n";
     std::cout << "Coordenadas: (" << coordenadas[0] << ", " << coordenadas[1] << ")\n";
@@ -95,3 +109,34 @@ surtidor* estacion::getSurtidor(int indice) {
     throw std::out_of_range("indice de surtidor invalido.");
 }
 
+void estacion::calcularTotalVentasPorCategoria() const {
+    double totalRegular = 0.0;
+    double totalPremium = 0.0;
+    double totalEcoExtra = 0.0;
+
+    for (int i = 0; i < numeroSurtidores; ++i) {
+        totalRegular += surtidores[i]->calcularTotalPorCategoria("Regular");
+        totalPremium += surtidores[i]->calcularTotalPorCategoria("Premium");
+        totalEcoExtra += surtidores[i]->calcularTotalPorCategoria("EcoExtra");
+    }
+
+    std::cout << "Total ventas Regular: $" << totalRegular << std::endl;
+    std::cout << "Total ventas Premium: $" << totalPremium << std::endl;
+    std::cout << "Total ventas EcoExtra: $" << totalEcoExtra << std::endl;
+}
+
+void estacion::calcularLitrosVendidosPorCategoria() const {
+    double totalRegular = 0.0;
+    double totalPremium = 0.0;
+    double totalEcoExtra = 0.0;
+
+    for (int i = 0; i < numeroSurtidores; ++i) {
+        totalRegular += surtidores[i]->calcularLitrosPorCategoria("Regular");
+        totalPremium += surtidores[i]->calcularLitrosPorCategoria("Premium");
+        totalEcoExtra += surtidores[i]->calcularLitrosPorCategoria("EcoExtra");
+    }
+
+    std::cout << "Total litros vendidos Regular: " << totalRegular << " L\n";
+    std::cout << "Total litros vendidos Premium: " << totalPremium << " L\n";
+    std::cout << "Total litros vendidos EcoExtra: " << totalEcoExtra << " L\n";
+}

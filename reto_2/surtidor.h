@@ -32,6 +32,10 @@ public:
     void activar();
     void desactivar();
     bool estaActivo() const;
+    double calcularTotalPorCategoria(const std::string& categoria) const;//precios
+    double calcularLitrosPorCategoria(const std::string& categoria) const;//litros
+
+
 };
 
 #endif // SURTIDOR_H
